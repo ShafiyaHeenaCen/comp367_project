@@ -39,7 +39,7 @@ stages:
 - stage: Deliver
   displayName: ContinousDeploy
   jobs:
-  - job: Dev Deploy
+  - job: DevDeploy
     displayName: Deploy to Dev Env
     pool:
       vmImage: ubuntu-latest
