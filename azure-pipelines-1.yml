@@ -66,7 +66,7 @@ stages:
       displayName: Staging Deploy
 
   - job: ProductionDeploy
-    ependsOn: StagingDeploy
+    dependsOn: StagingDeploy
     displayName: Deploy to Production Env
     pool:
       vmImage: ubuntu-latest
