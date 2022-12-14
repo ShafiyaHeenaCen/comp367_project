@@ -14,7 +14,7 @@ variables:
 
 stages:
 - stage: Build
-  displayName: Build image
+  displayName: Application Build
   jobs:
   - job: Build
     displayName: Build
@@ -48,6 +48,7 @@ stages:
       displayName: Dev Deploy
 
   - job: QATDeploy
+    dependsOn: DevDeploy 
     displayName: Deploy to QAT Env
     pool:
       vmImage: ubuntu-latest
@@ -56,6 +57,7 @@ stages:
       displayName: QAT Deploy
 
   - job: StagingDeploy
+    dependsOn: QATDeploy
     displayName: Deploy to Staging Env
     pool:
       vmImage: ubuntu-latest
@@ -64,6 +66,7 @@ stages:
       displayName: Staging Deploy
 
   - job: ProductionDeploy
+    ependsOn: StagingDeploy
     displayName: Deploy to Production Env
     pool:
       vmImage: ubuntu-latest
