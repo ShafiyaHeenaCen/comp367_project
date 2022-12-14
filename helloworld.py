@@ -1,1 +1,1 @@
-print("Hello!!! This is for demo purpose")
+print("Hello!!! This is for just demo purpose")
