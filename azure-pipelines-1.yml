@@ -1,35 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@ShafiyaHeenaCen 
-ShafiyaHeenaCen
-/
-comp367_project
-Public
-Code
-Issues
-4
-Pull requests
-2
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-comp367_project/azure-pipelines-1.yml
-@ShafiyaHeenaCen
-ShafiyaHeenaCen Update azure-pipelines-1.yml
-Latest commit 6edb999 19 minutes ago
- History
- 1 contributor
-38 lines (31 sloc)  696 Bytes
-
 # Test commit
 
 # Build a Docker image
