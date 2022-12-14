@@ -10,7 +10,7 @@ pipeline {
       steps {
         script {
         
-          git branch:"master", url: https://github.com/ShafiyaHeenaCen/comp367_project.git
+          git branch:"master", url: "https://github.com/ShafiyaHeenaCen/comp367_project.git"
         
         }
       }
