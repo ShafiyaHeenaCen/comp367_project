@@ -32,3 +32,8 @@ stages:
       inputs:
         containerRegistry: 'DockerHub'
         command: 'push'
+        
+    steps:
+    - bash: echo "This is test stage"
+      displayName: Test stage
+
