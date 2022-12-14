@@ -47,7 +47,7 @@ stages:
     - bash: echo "Deploying to Development Environment"
       displayName: Dev Deploy
 
-  - job: QAT Deploy
+  - job: QATDeploy
     displayName: Deploy to QAT Env
     pool:
       vmImage: ubuntu-latest
@@ -55,7 +55,7 @@ stages:
     - bash: echo "Deploying to QAT Environment"
       displayName: QAT Deploy
 
-  - job: Staging Deploy
+  - job: StagingDeploy
     displayName: Deploy to Staging Env
     pool:
       vmImage: ubuntu-latest
@@ -63,7 +63,7 @@ stages:
     - bash: echo "Deploying to Staging Environment"
       displayName: Staging Deploy
 
-  - job: Production Deploy
+  - job: ProductionDeploy
     displayName: Deploy to Production Env
     pool:
       vmImage: ubuntu-latest
