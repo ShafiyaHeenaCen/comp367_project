@@ -39,7 +39,7 @@ stages:
       displayName: Test stage
 
 - stage: Deliver
-  displayName: ContinousDeploy
+  displayName: Pull Docker Image
   jobs:
   - job: PullImage 
     displayName: Pull image from DockerHub
@@ -49,7 +49,7 @@ stages:
     - bash: echo "Pulling image from docker hub"
 - stage: DevDeploy
   dependsOn: Deliver
-  displayName: ContinousDeploy
+  displayName: Deploy to Development Environment
   jobs:
   - job: DevDeploy
     displayName: Deploy to Dev Env
@@ -60,7 +60,7 @@ stages:
       displayName: Dev Deploy
 - stage: QATDeploy
   dependsOn: DevDeploy 
-  displayName: ContinousDeploy
+  displayName: Deploy to QAT Environment
   jobs:
   - job: QATDeploy
     displayName: Deploy to QAT Env
@@ -71,7 +71,7 @@ stages:
       displayName: QAT Deploy
 - stage: StagingDeploy
   dependsOn: QATDeploy
-  displayName: ContinousDeploy
+  displayName: Deploy to Staging Environment
   jobs:
   - job: StagingDeploy
     displayName: Deploy to Staging Env
@@ -82,7 +82,7 @@ stages:
       displayName: Staging Deploy
 - stage: ProductionDeploy
   dependsOn: StagingDeploy
-  displayName: ContinousDeploy
+  displayName: Deploy to Production Environment
   jobs:
   - job: ProductionDeploy
     displayName: Deploy to Production Env
