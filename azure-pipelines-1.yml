@@ -48,7 +48,9 @@ stages:
     steps:
     - bash: echo "Deploying to Development Environment"
       displayName: Dev Deploy
-
+- stage: QATDeploy
+  displayName: ContinousDeploy
+  jobs:
   - job: QATDeploy
     dependsOn: DevDeploy 
     condition: succeeded('DevDeploy')
@@ -58,7 +60,9 @@ stages:
     steps:
     - bash: echo "Deploying to QAT Environment"
       displayName: QAT Deploy
-
+- stage: StagingDeploy
+  displayName: ContinousDeploy
+  jobs:
   - job: StagingDeploy
     dependsOn: QATDeploy
     condition: succeeded('QATDeploy')
@@ -68,7 +72,9 @@ stages:
     steps:
     - bash: echo "Deploying to Staging Environment"
       displayName: Staging Deploy
-
+- stage: ProductionDeploy
+  displayName: ContinousDeploy
+  jobs:
   - job: ProductionDeploy
     dependsOn: StagingDeploy
     condition: succeeded('StagingDeploy')
