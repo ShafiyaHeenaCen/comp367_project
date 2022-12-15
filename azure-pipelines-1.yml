@@ -41,6 +41,16 @@ stages:
 - stage: Deliver
   displayName: ContinousDeploy
   jobs:
+  - job: PullImage 
+    displayName: Pull image from DockerHub
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - bash: echo "Pulling image from docker hub"
+- stage: DevDeploy
+  dependsOn: Deliver
+  displayName: ContinousDeploy
+  jobs:
   - job: DevDeploy
     displayName: Deploy to Dev Env
     pool:
@@ -49,11 +59,10 @@ stages:
     - bash: echo "Deploying to Development Environment"
       displayName: Dev Deploy
 - stage: QATDeploy
+  dependsOn: DevDeploy 
   displayName: ContinousDeploy
   jobs:
   - job: QATDeploy
-    dependsOn: DevDeploy 
-    condition: succeeded('DevDeploy')
     displayName: Deploy to QAT Env
     pool:
       vmImage: ubuntu-latest
@@ -61,11 +70,10 @@ stages:
     - bash: echo "Deploying to QAT Environment"
       displayName: QAT Deploy
 - stage: StagingDeploy
+  dependsOn: QATDeploy
   displayName: ContinousDeploy
   jobs:
   - job: StagingDeploy
-    dependsOn: QATDeploy
-    condition: succeeded('QATDeploy')
     displayName: Deploy to Staging Env
     pool:
       vmImage: ubuntu-latest
@@ -73,11 +81,10 @@ stages:
     - bash: echo "Deploying to Staging Environment"
       displayName: Staging Deploy
 - stage: ProductionDeploy
+  dependsOn: StagingDeploy
   displayName: ContinousDeploy
   jobs:
   - job: ProductionDeploy
-    dependsOn: StagingDeploy
-    condition: succeeded('StagingDeploy')
     displayName: Deploy to Production Env
     pool:
       vmImage: ubuntu-latest
