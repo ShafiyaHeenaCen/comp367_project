@@ -51,6 +51,7 @@ stages:
 
   - job: QATDeploy
     dependsOn: DevDeploy 
+    condition: succeeded('DevDeploy')
     displayName: Deploy to QAT Env
     pool:
       vmImage: ubuntu-latest
@@ -60,6 +61,7 @@ stages:
 
   - job: StagingDeploy
     dependsOn: QATDeploy
+    condition: succeeded('QATDeploy')
     displayName: Deploy to Staging Env
     pool:
       vmImage: ubuntu-latest
@@ -69,6 +71,7 @@ stages:
 
   - job: ProductionDeploy
     dependsOn: StagingDeploy
+    condition: succeeded('StagingDeploy')
     displayName: Deploy to Production Env
     pool:
       vmImage: ubuntu-latest
