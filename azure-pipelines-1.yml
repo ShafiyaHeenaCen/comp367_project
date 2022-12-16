@@ -1,5 +1,5 @@
-# Docker
-
+# Test commit 1
+# Testing commit again
 # Build a Docker image
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
@@ -14,7 +14,7 @@ variables:
 
 stages:
 - stage: Build
-  displayName: Build image
+  displayName: Application Build
   jobs:
   - job: Build
     displayName: Build
@@ -26,9 +26,68 @@ stages:
       inputs:
         command: build
         dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
+        repository:  'shafiyaheena/pythondemo'
+        tags: 'latest'
     - task: Docker@2
       inputs:
         containerRegistry: 'DockerHub'
+        repository: 'shafiyaheena/pythondemo'
+        tags: 'latest'
         command: 'push'
+        
+    - bash: echo "This is test stage"
+      displayName: Test stage
+
+- stage: Deliver
+  displayName: Pull Docker Image
+  jobs:
+  - job: PullImage 
+    displayName: Pull image from DockerHub
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - bash: echo "Pulling image from docker hub"
+- stage: DevDeploy
+  dependsOn: Deliver
+  displayName: Deploy to Development Environment
+  jobs:
+  - job: DevDeploy
+    displayName: Deploy to Dev Env
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - bash: echo "Deploying to Development Environment"
+      displayName: Dev Deploy
+- stage: QATDeploy
+  dependsOn: DevDeploy 
+  displayName: Deploy to QAT Environment
+  jobs:
+  - job: QATDeploy
+    displayName: Deploy to QAT Env
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - bash: echo "Deploying to QAT Environment"
+      displayName: QAT Deploy
+- stage: StagingDeploy
+  dependsOn: QATDeploy
+  displayName: Deploy to Staging Environment
+  jobs:
+  - job: StagingDeploy
+    displayName: Deploy to Staging Env
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - bash: echo "Deploying to Staging Environment"
+      displayName: Staging Deploy
+- stage: ProductionDeploy
+  dependsOn: StagingDeploy
+  displayName: Deploy to Production Environment
+  jobs:
+  - job: ProductionDeploy
+    displayName: Deploy to Production Env
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - bash: echo "Deploying to Production Environment"
+      displayName: Production Deploy
